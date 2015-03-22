@@ -44,7 +44,7 @@ Example usage
     }
 
 Generates the following output in console
-
+```
 2015-03-22 19:41:13.727 PolynomialRegression[2261:103071] The result is the sum of
 2015-03-22 19:41:13.736 PolynomialRegression[2261:103071] 1.011300 * x^0
 2015-03-22 19:41:13.736 PolynomialRegression[2261:103071] -23.964676 * x^1
@@ -52,3 +52,4 @@ Generates the following output in console
 2015-03-22 19:41:13.736 PolynomialRegression[2261:103071] -0.236831 * x^3
 2015-03-22 19:41:13.736 PolynomialRegression[2261:103071] -0.000581 * x^4
 2015-03-22 19:41:13.736 PolynomialRegression[2261:103071] 0.000309 * x^5
+```

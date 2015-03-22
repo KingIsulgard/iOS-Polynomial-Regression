@@ -43,7 +43,7 @@
     TwoDimensionalMatrixOfDoubles *regression = [self solve_for: l andR: r];
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i < p; i++) {
+    for(int i = 0; i <= p; i++) {
         double value = [regression getValueAtRow:i column:0];
         [result addObject: [NSNumber numberWithDouble: value]];
     }

@@ -4,6 +4,7 @@
 //
 //  Created by Gilles Lesire on 19/03/15.
 //  GNU General Public License (GPL)
+//  https://github.com/KingIsulgard/iOS-Polynomial-Regression
 //
 
 #import "TwoDimensionalMatrixOfDoubles.h"

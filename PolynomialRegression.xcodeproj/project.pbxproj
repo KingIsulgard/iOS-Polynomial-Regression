@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA11100E1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.m in Sources */ = {isa = PBXBuildFile; fileRef = CA11100D1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.m */; };
+		CA11100E1ABB16560007758E /* DoublesMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = CA11100D1ABB16560007758E /* DoublesMatrix.m */; };
 		CA547E001ABF319800E10ECC /* PolynomialRegression.m in Sources */ = {isa = PBXBuildFile; fileRef = CA547DFF1ABF319800E10ECC /* PolynomialRegression.m */; };
 		CA8020101AB9B747007CDF96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CA80200F1AB9B747007CDF96 /* main.m */; };
 		CA8020131AB9B747007CDF96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8020121AB9B747007CDF96 /* AppDelegate.m */; };
@@ -29,8 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CA11100C1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionalMatrixOfDoubles.h; sourceTree = "<group>"; };
-		CA11100D1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimensionalMatrixOfDoubles.m; sourceTree = "<group>"; };
+		CA11100C1ABB16560007758E /* DoublesMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoublesMatrix.h; sourceTree = "<group>"; };
+		CA11100D1ABB16560007758E /* DoublesMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoublesMatrix.m; sourceTree = "<group>"; };
 		CA547DFF1ABF319800E10ECC /* PolynomialRegression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolynomialRegression.m; sourceTree = "<group>"; };
 		CA547E011ABF31A700E10ECC /* PolynomialRegression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolynomialRegression.h; sourceTree = "<group>"; };
 		CA80200A1AB9B747007CDF96 /* PolynomialRegression.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolynomialRegression.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,8 +95,8 @@
 				CA80201A1AB9B747007CDF96 /* Images.xcassets */,
 				CA80201C1AB9B747007CDF96 /* LaunchScreen.xib */,
 				CA80200D1AB9B747007CDF96 /* Supporting Files */,
-				CA11100C1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.h */,
-				CA11100D1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.m */,
+				CA11100C1ABB16560007758E /* DoublesMatrix.h */,
+				CA11100D1ABB16560007758E /* DoublesMatrix.m */,
 				CA547E011ABF31A700E10ECC /* PolynomialRegression.h */,
 				CA547DFF1ABF319800E10ECC /* PolynomialRegression.m */,
 			);
@@ -229,7 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA11100E1ABB16560007758E /* TwoDimensionalMatrixOfDoubles.m in Sources */,
+				CA11100E1ABB16560007758E /* DoublesMatrix.m in Sources */,
 				CA8020161AB9B747007CDF96 /* ViewController.m in Sources */,
 				CA8020131AB9B747007CDF96 /* AppDelegate.m in Sources */,
 				CA547E001ABF319800E10ECC /* PolynomialRegression.m in Sources */,

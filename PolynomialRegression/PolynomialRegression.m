@@ -22,7 +22,7 @@
         return nil;
     }
     
-    TwoDimensionalMatrixOfDoubles *z = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: (int) [xvals count] columns: (p + 1)];
+    DoublesMatrix *z = [[DoublesMatrix alloc] initWithSizeRows: (int) [xvals count] columns: (p + 1)];
     
     for(int i = 0; i < (int) [xvals count]; i++) {
         for(int j = 0; j <= p; j++) {
@@ -31,17 +31,17 @@
         }
     }
     
-    TwoDimensionalMatrixOfDoubles *y = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: (int) [yvals count] columns: 1];
+    DoublesMatrix *y = [[DoublesMatrix alloc] initWithSizeRows: (int) [yvals count] columns: 1];
     
     for(int u = 0; u < (int) [yvals count]; u++) {
         [y setValueAtRow: u column: 0 value: [[yvals objectAtIndex: u] doubleValue]];
     }
     
-    TwoDimensionalMatrixOfDoubles *z_transposed = [z transpose];
-    TwoDimensionalMatrixOfDoubles *l = [z_transposed multiplyWithMatrix: z];
-    TwoDimensionalMatrixOfDoubles *r = [z_transposed multiplyWithMatrix: y];
+    DoublesMatrix *z_transposed = [z transpose];
+    DoublesMatrix *l = [z_transposed multiplyWithMatrix: z];
+    DoublesMatrix *r = [z_transposed multiplyWithMatrix: y];
     
-    TwoDimensionalMatrixOfDoubles *regression = [self solve_for: l andR: r];
+    DoublesMatrix *regression = [self solve_for: l andR: r];
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
     for(int i = 0; i <= p; i++) {
@@ -52,20 +52,20 @@
     return result;
 }
 
-+ (TwoDimensionalMatrixOfDoubles *) solve_for: (TwoDimensionalMatrixOfDoubles *) l andR: (TwoDimensionalMatrixOfDoubles *) r {
++ (DoublesMatrix *) solve_for: (DoublesMatrix *) l andR: (DoublesMatrix *) r {
     
-    TwoDimensionalMatrixOfDoubles *resultMatrix = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: l.rows columns: 1];
+    DoublesMatrix *resultMatrix = [[DoublesMatrix alloc] initWithSizeRows: l.rows columns: 1];
     
     NSMutableArray *resDecomp = [self decompose: l];
     
-    TwoDimensionalMatrixOfDoubles *nP = [resDecomp objectAtIndex: 2];
-    TwoDimensionalMatrixOfDoubles *lMatrix = [resDecomp objectAtIndex: 1];
-    TwoDimensionalMatrixOfDoubles *uMatrix = [resDecomp objectAtIndex: 0];
+    DoublesMatrix *nP = [resDecomp objectAtIndex: 2];
+    DoublesMatrix *lMatrix = [resDecomp objectAtIndex: 1];
+    DoublesMatrix *uMatrix = [resDecomp objectAtIndex: 0];
     
     for(int k = 0; k < r.rows; k++) {
         double sum = 0.0f;
         
-        TwoDimensionalMatrixOfDoubles *dMatrix = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: l.rows columns: 1];
+        DoublesMatrix *dMatrix = [[DoublesMatrix alloc] initWithSizeRows: l.rows columns: 1];
         
         double val1 = [r getValueAtRow: (int) [nP getValueAtRow: 0 column: 0] column: k];
         double val2 = [lMatrix getValueAtRow: 0 column: 0];
@@ -97,13 +97,13 @@
     return resultMatrix;
 }
 
-+ (NSMutableArray *) decompose: (TwoDimensionalMatrixOfDoubles *) l {
-    TwoDimensionalMatrixOfDoubles *uMatrix = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: 1 columns: 1];
-    TwoDimensionalMatrixOfDoubles *lMatrix = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: 1 columns: 1];
-    TwoDimensionalMatrixOfDoubles *workingUMatrix = [l duplicate];
-    TwoDimensionalMatrixOfDoubles *workingLMatrix = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: 1 columns: 1];
++ (NSMutableArray *) decompose: (DoublesMatrix *) l {
+    DoublesMatrix *uMatrix = [[DoublesMatrix alloc] initWithSizeRows: 1 columns: 1];
+    DoublesMatrix *lMatrix = [[DoublesMatrix alloc] initWithSizeRows: 1 columns: 1];
+    DoublesMatrix *workingUMatrix = [l duplicate];
+    DoublesMatrix *workingLMatrix = [[DoublesMatrix alloc] initWithSizeRows: 1 columns: 1];
     
-    TwoDimensionalMatrixOfDoubles *pivotArray = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: l.rows columns: 1];
+    DoublesMatrix *pivotArray = [[DoublesMatrix alloc] initWithSizeRows: l.rows columns: 1];
     
     for(int i = 0; i < l.rows; i++) {
         [pivotArray setValueAtRow: i column: 0 value: (double) i];

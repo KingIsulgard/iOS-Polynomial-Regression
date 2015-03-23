@@ -8,7 +8,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TwoDimensionalMatrixOfDoubles.h"
+#import "DoublesMatrix.h"
 
 @interface PolynomialRegression : NSObject
 + (NSMutableArray *) regressionWithXValues: (NSMutableArray *) xvals AndYValues: (NSMutableArray *) yvals PolynomialDegree: (int) p;

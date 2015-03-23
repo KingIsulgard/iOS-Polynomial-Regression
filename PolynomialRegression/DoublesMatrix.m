@@ -7,9 +7,9 @@
 //  https://github.com/KingIsulgard/iOS-Polynomial-Regression
 //
 
-#import "TwoDimensionalMatrixOfDoubles.h"
+#import "DoublesMatrix.h"
 
-@implementation TwoDimensionalMatrixOfDoubles
+@implementation DoublesMatrix
 
 @synthesize rows;
 @synthesize columns;
@@ -115,8 +115,8 @@
  *
  * @link http://en.wikipedia.org/wiki/Transpose Wikipedia
  */
-- (TwoDimensionalMatrixOfDoubles *) transpose {
-    TwoDimensionalMatrixOfDoubles *transposed = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: self.columns columns: self.rows];
+- (DoublesMatrix *) transpose {
+    DoublesMatrix *transposed = [[DoublesMatrix alloc] initWithSizeRows: self.columns columns: self.rows];
     
     for(int i = 0; i < self.rows; i++) {
         for(int j = 0; j < self.columns; j++) {
@@ -140,14 +140,14 @@
  *
  * @link http://en.wikipedia.org/wiki/Matrix_multiplication Wikipedia
  */
-- (TwoDimensionalMatrixOfDoubles *) multiplyWithMatrix: (TwoDimensionalMatrixOfDoubles *) matrix {
+- (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix {
     if(self.columns != matrix.rows) {
         [NSException raise:@"There should be as many columns in matrix A (this matrix) as there are rows in matrix B (parameter matrix) to multiply. " format: @"Matrix A has %d columns and matrix B has %d rows.", self.columns, matrix.rows];
         return nil;
     }
     
     // The result of a mxn matrix multiplied with an nxp matrix resulsts in a mxp matrix
-    TwoDimensionalMatrixOfDoubles *result = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: rows columns: matrix.columns];
+    DoublesMatrix *result = [[DoublesMatrix alloc] initWithSizeRows: rows columns: matrix.columns];
     
     for(int r_col = 0; r_col < matrix.columns; r_col++) {
         
@@ -213,8 +213,8 @@
  *
  * Creates a duplicate TwoDimensionalMatrixOfDoubles of the current matrix
  */
-- (TwoDimensionalMatrixOfDoubles *) duplicate {
-    TwoDimensionalMatrixOfDoubles *duplicate = [[TwoDimensionalMatrixOfDoubles alloc] initWithSizeRows: rows columns: columns];
+- (DoublesMatrix *) duplicate {
+    DoublesMatrix *duplicate = [[DoublesMatrix alloc] initWithSizeRows: rows columns: columns];
     
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < columns; j++) {

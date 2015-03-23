@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TwoDimensionalMatrixOfDoubles : NSObject {
+@interface DoublesMatrix : NSObject {
     NSMutableArray *values;
     int rows;
     int columns;
@@ -23,11 +23,11 @@
 - (void) setValueAtRow: (int) m column: (int) n value: (double) value;
 - (double) getValueAtRow: (int) m column: (int) n;
 
-- (TwoDimensionalMatrixOfDoubles *) transpose;
-- (TwoDimensionalMatrixOfDoubles *) multiplyWithMatrix: (TwoDimensionalMatrixOfDoubles *) matrix;
+- (DoublesMatrix *) transpose;
+- (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix;
 
 - (double) determinant;
 
-- (TwoDimensionalMatrixOfDoubles *) duplicate;
+- (DoublesMatrix *) duplicate;
 
 @end

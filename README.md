@@ -55,3 +55,21 @@ Generates the following output in console
 2015-03-22 19:52:48.753 PolynomialRegression[2701:111554] 0.000309 * x^5
 2015-03-22 19:52:48.753 PolynomialRegression[2701:111554] -0.000005 * x^6
 ```
+
+Donate
+======
+
+You can support [contributors](https://github.com/KingIsulgard/iOS-Polynomial-Regression/graphs/contributors) of this project individually. Every contributor is welcomed to add his/her line below with any content. Ordering shall be alphabetically by GitHub username.
+
+Please consider a small donation if you use iOS Polynomial Regression in your projects. It would make me really happy.
+
+* [@KingIsulgard](https://github.com/KingIsulgard): <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HQE64D8RQGPLC"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="[paypal]" /></a> !
+
+License and Warranty
+====================
+
+The license for the code is included with the project; it's basically a BSD license with attribution.
+
+You're welcome to use it in commercial, closed-source, open source, free or any other kind of software, as long as you credit me appropriately.
+
+The code comes with no warranty of any kind. I hope it'll be useful to you (it certainly is to me), but I make no guarantees regarding its functionality or otherwise.

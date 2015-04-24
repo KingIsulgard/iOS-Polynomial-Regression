@@ -38,7 +38,7 @@ Example usage
     
     NSLog(@"The result is the sum of");
     
-    for(int i = 0; i < 6; i++) {
+    for(int i = 0; i < [regression count]; i++) {
         double value = [[regression objectAtIndex: i] doubleValue];
         NSLog(@"%f * x^%d", value, i);
     }

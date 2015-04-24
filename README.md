@@ -34,7 +34,8 @@ Example usage
     [y addObject: [NSNumber numberWithDouble: 23]];
     [y addObject: [NSNumber numberWithDouble: 30]];
     
-    NSMutableArray *regression = [PolynomialRegression regressionWithXValues: x AndYValues: y PolynomialDegree: 6];
+    int degree = 6;
+    NSMutableArray *regression = [PolynomialRegression regressionWithXValues: x AndYValues: y PolynomialDegree: degree];
     
     NSLog(@"The result is the sum of");
     

@@ -18,6 +18,8 @@ You have to give an array of NSNumber for the x values and y values and the desi
 ## Features
 - Can calculate any degree of polynomial
 - Easy to implement
+- Very compact, one line usage
+- Also contains a custom matrix class for this project which handles doubles
 
 ## Example
 

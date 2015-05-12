@@ -165,6 +165,58 @@
 }
 
 /**
+ * Matrix rotateLeft
+ *
+ * Rotate all row elements in the matrix one column to the left
+ */
+- (void) rotateLeft {
+    // Shift all rows
+    for(int m = 0; m < rows; m++) {
+        NSMutableArray *row = [values objectAtIndex: m];
+        NSNumber *shiftObject = [row objectAtIndex: 0];
+        [row removeObjectAtIndex: 0];
+        [row addObject: shiftObject];
+    }
+}
+
+/**
+ * Matrix rotateRight
+ *
+ * Rotate all row elements in the matrix one column to the right
+ */
+- (void) rotateRight {
+    // Shift all rows
+    for(int m = 0; m < rows; m++) {
+        NSMutableArray *row = [values objectAtIndex: m];
+        NSNumber *shiftObject = [row objectAtIndex: columns - 1];
+        [row removeObjectAtIndex: columns - 1];
+        [row insertObject: shiftObject atIndex: 0];
+    }
+}
+
+/**
+ * Matrix rotateTop
+ *
+ * Rotate all column elements in the matrix one row to the top
+ */
+- (void) rotateTop {
+    NSMutableArray *row = [values objectAtIndex: 0];
+    [values removeObjectAtIndex: 0];
+    [values addObject: row];
+}
+
+/**
+ * Matrix rotateBottom
+ *
+ * Rotate all column elements in the matrix one row to the bottom
+ */
+- (void) rotateBottom {
+    NSMutableArray *row = [values objectAtIndex: rows - 1];
+    [values removeObjectAtIndex: rows - 1];
+    [values insertObject: row atIndex: 0];
+}
+
+/**
  * Matrix determinant
  *
  * Calculates the determinant value of the matrix

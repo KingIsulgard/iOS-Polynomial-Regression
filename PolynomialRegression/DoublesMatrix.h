@@ -26,6 +26,12 @@
 - (DoublesMatrix *) transpose;
 - (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix;
 
+- (void) rotateLeft;
+- (void) rotateRight;
+
+- (void) rotateTop;
+- (void) rotateBottom;
+
 - (double) determinant;
 
 - (DoublesMatrix *) duplicate;

@@ -16,34 +16,35 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     NSMutableArray *x = [[NSMutableArray alloc] init];
-    [x addObject: [NSNumber numberWithDouble: 0]];
-    [x addObject: [NSNumber numberWithDouble: 9]];
-    [x addObject: [NSNumber numberWithDouble: 13]];
-    [x addObject: [NSNumber numberWithDouble: 15]];
-    [x addObject: [NSNumber numberWithDouble: 19]];
-    [x addObject: [NSNumber numberWithDouble: 20]];
-    [x addObject: [NSNumber numberWithDouble: 26]];
-    [x addObject: [NSNumber numberWithDouble: 26]];
-    [x addObject: [NSNumber numberWithDouble: 29]];
-    [x addObject: [NSNumber numberWithDouble: 30]];
+    [x addObject: @0];
+    [x addObject: @9];
+    [x addObject: @13];
+    [x addObject: @15];
+    [x addObject: @19];
+    [x addObject: @20];
+    [x addObject: @26];
+    [x addObject: @26];
+    [x addObject: @29];
+    [x addObject: @30];
     
     NSMutableArray *y = [[NSMutableArray alloc] init];
     
-    [y addObject: [NSNumber numberWithDouble: 1]];
-    [y addObject: [NSNumber numberWithDouble: -7]];
-    [y addObject: [NSNumber numberWithDouble: 6]];
-    [y addObject: [NSNumber numberWithDouble: 12]];
-    [y addObject: [NSNumber numberWithDouble: -4]];
-    [y addObject: [NSNumber numberWithDouble: -12]];
-    [y addObject: [NSNumber numberWithDouble: -2]];
-    [y addObject: [NSNumber numberWithDouble: 13]];
-    [y addObject: [NSNumber numberWithDouble: 23]];
-    [y addObject: [NSNumber numberWithDouble: 30]];
+    [y addObject: @1];
+    [y addObject: @-7];
+    [y addObject: @6];
+    [y addObject: @12];
+    [y addObject: @-4];
+    [y addObject: @-12];
+    [y addObject: @-2];
+    [y addObject: @13];
+    [y addObject: @23];
+    [y addObject: @30];
     
     int degree = 6;
     NSMutableArray *regression = [PolynomialRegression regressionWithXValues: x AndYValues: y PolynomialDegree: degree];

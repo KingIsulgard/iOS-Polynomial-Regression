@@ -9,14 +9,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DoublesMatrix : NSObject {
-    NSMutableArray *values;
-    int rows;
-    int columns;
-}
+@interface DoublesMatrix : NSObject
 
-@property (nonatomic) int rows;
-@property (nonatomic) int columns;
+@property (nonatomic, readwrite, strong) NSMutableArray *values;
+@property (nonatomic, readwrite, assign) int rows;
+@property (nonatomic, readwrite, assign) int columns;
 
 - (id) initWithSizeRows: (int) m columns: (int) n;
 - (void) expandToRows: (int) m columns: (int) n;

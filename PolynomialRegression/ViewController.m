@@ -52,7 +52,7 @@
     NSLog(@"The result is the sum of");
     
     for(int i = 0; i < [regression count]; i++) {
-        double value = [[regression objectAtIndex: i] doubleValue];
+        double value = [regression[i] doubleValue];
         NSLog(@"%f * x^%d", value, i);
     }
 }

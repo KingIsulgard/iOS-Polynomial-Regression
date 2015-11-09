@@ -173,8 +173,8 @@
 {
     // Shift all rows
     for (int m = 0; m < self.rows; m++) {
-        NSMutableArray *row = [self.values objectAtIndex: m];
-        NSNumber *shiftObject = [row objectAtIndex: 0];
+        NSMutableArray *row = self.values[m];
+        NSNumber *shiftObject = row[0];
         [row removeObjectAtIndex: 0];
         [row addObject: shiftObject];
     }
@@ -189,8 +189,8 @@
 {
     // Shift all rows
     for (int m = 0; m < self.rows; m++) {
-        NSMutableArray *row = [self.values objectAtIndex: m];
-        NSNumber *shiftObject = [row objectAtIndex: self.columns - 1];
+        NSMutableArray *row = self.values[m];
+        NSNumber *shiftObject = row[self.columns - 1];
         [row removeObjectAtIndex: self.columns - 1];
         [row insertObject: shiftObject atIndex: 0];
     }
@@ -203,7 +203,7 @@
  */
 - (void) rotateTop
 {
-    NSMutableArray *row = [self.values objectAtIndex: 0];
+    NSMutableArray *row = self.values[0];
     [self.values removeObjectAtIndex: 0];
     [self.values addObject: row];
 }

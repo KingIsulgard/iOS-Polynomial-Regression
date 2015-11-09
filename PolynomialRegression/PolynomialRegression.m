@@ -26,7 +26,7 @@
     
     for (int i = 0; i < (int) [xvals count]; i++) {
         for (int j = 0; j <= p; j++) {
-            double val = pow([[xvals objectAtIndex: i] doubleValue], (double) j);
+            double val = pow([xvals[i] doubleValue], (double) j);
             [z setValueAtRow: i column: j value: val];
         }
     }
@@ -34,7 +34,7 @@
     DoublesMatrix *y = [[DoublesMatrix alloc] initWithSizeRows: (int) [yvals count] columns: 1];
     
     for (int u = 0; u < (int) [yvals count]; u++) {
-        [y setValueAtRow: u column: 0 value: [[yvals objectAtIndex: u] doubleValue]];
+        [y setValueAtRow: u column: 0 value: [yvals[u] doubleValue]];
     }
     
     DoublesMatrix *z_transposed = [z transpose];
@@ -46,7 +46,7 @@
     
     for (int i = 0; i <= p; i++) {
         double value = [regression getValueAtRow:i column:0];
-        [result addObject: [NSNumber numberWithDouble: value]];
+        [result addObject: @(value)];
     }
     
     return result;

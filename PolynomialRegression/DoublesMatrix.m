@@ -16,7 +16,7 @@
  *
  * Create an empty matrix with zeros of size rowsxcolumns
  */
-- (id) initWithSizeRows: (int) m columns: (int) n
+- (instancetype)initWithSizeRows:(NSUInteger)m columns:(NSUInteger)n
 {
     if (!(self = [super init])) return nil;
 
@@ -42,11 +42,11 @@
  *
  * Resize the array to a bigger size if needed
  */
-- (void) expandToRows: (int) m columns: (int) n
+- (void)expandToRows:(NSUInteger)m columns:(NSUInteger)n
 {
     if (self.columns < n) {
         for (int i = 0; i < self.rows; i++) {
-            int adder = n - self.columns;
+            NSUInteger adder = n - self.columns;
             for (int j = 0; j < adder; j++) {
                 [self.values[i] addObject: @0];
             }
@@ -56,7 +56,7 @@
     }
     
     if (self.rows < m) {
-        int adder = m - self.rows;
+        NSUInteger adder = m - self.rows;
         for (int i = 0; i < adder; i++) {
             NSMutableArray *nValues = [[NSMutableArray alloc] init];
             for (int j = 0; j < n; j++) {
@@ -75,7 +75,7 @@
  *
  * Set the value at a certain row and column
  */
-- (void) setValueAtRow: (int) m column: (int) n value: (double) value
+- (void)setValueAtRow:(NSUInteger)m column:(NSUInteger)n value:(double)value
 {
     if (m >= self.rows || n >= self.columns) {
         [self expandToRows: (m + 1) columns: (n + 1)];
@@ -90,7 +90,7 @@
  *
  * Get the value at a certain row and column
  */
-- (double) getValueAtRow: (int) m column: (int) n
+- (double)getValueAtRow:(NSUInteger)m column:(NSUInteger)n
 {
     if (m >= self.rows || n >= self.columns) {
         [self expandToRows: (m + 1) columns: (n + 1)];
@@ -113,9 +113,9 @@
  *
  * @link http://en.wikipedia.org/wiki/Transpose Wikipedia
  */
-- (DoublesMatrix *) transpose
+- (DoublesMatrix *)transpose
 {
-    DoublesMatrix *transposed = [[DoublesMatrix alloc] initWithSizeRows: self.columns columns: self.rows];
+    DoublesMatrix *transposed = [[DoublesMatrix alloc] initWithSizeRows:self.columns columns:self.rows];
     
     for (int i = 0; i < self.rows; i++) {
         for (int j = 0; j < self.columns; j++) {
@@ -141,16 +141,12 @@
  */
 - (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix
 {
-    if (self.columns != matrix.rows) {
-        [NSException raise:@"There should be as many columns in matrix A (this matrix) as there are rows in matrix B (parameter matrix) to multiply. " format: @"Matrix A has %d columns and matrix B has %d rows.", self.columns, matrix.rows];
-        return nil;
-    }
+    NSCAssert(self.columns == matrix.rows, @"There should be as many columns in matrix A (this matrix) as there are rows in matrix B (parameter matrix) to multiply. Matrix A has %lu columns and matrix B has %lu rows.", self.columns, matrix.rows);
     
     // The result of a mxn matrix multiplied with an nxp matrix resulsts in a mxp matrix
-    DoublesMatrix *result = [[DoublesMatrix alloc] initWithSizeRows: self.rows columns: matrix.columns];
+    DoublesMatrix *result = [[DoublesMatrix alloc] initWithSizeRows:self.rows columns:matrix.columns];
     
     for (int r_col = 0; r_col < matrix.columns; r_col++) {
-        
         for (int l_row = 0; l_row < self.rows; l_row++) {
             // For field Rij we need to make the sum of AixBxj
             double value = 0.0f;
@@ -169,7 +165,7 @@
  *
  * Rotate all row elements in the matrix one column to the left
  */
-- (void) rotateLeft
+- (void)rotateLeft
 {
     // Shift all rows
     for (int m = 0; m < self.rows; m++) {
@@ -185,7 +181,7 @@
  *
  * Rotate all row elements in the matrix one column to the right
  */
-- (void) rotateRight
+- (void)rotateRight
 {
     // Shift all rows
     for (int m = 0; m < self.rows; m++) {
@@ -201,7 +197,7 @@
  *
  * Rotate all column elements in the matrix one row to the top
  */
-- (void) rotateTop
+- (void)rotateTop
 {
     NSMutableArray *row = self.values[0];
     [self.values removeObjectAtIndex: 0];
@@ -213,7 +209,7 @@
  *
  * Rotate all column elements in the matrix one row to the bottom
  */
-- (void) rotateBottom
+- (void)rotateBottom
 {
     NSMutableArray *row = self.values[self.rows - 1];
     [self.values removeObjectAtIndex: self.rows - 1];
@@ -234,7 +230,7 @@
  *
  * @link http://en.wikipedia.org/wiki/Determinant Wikipedia
  */
-- (double) determinant
+- (double)determinant
 {
     double det = 0;
     
@@ -242,9 +238,8 @@
         double product = 1;
         
         for (int j = 0; j < self.columns; j++) {
-            int column = (int) fmodf(i + j, self.columns);
-            int row = (int) fmodf(j, self.rows);
-            
+            NSUInteger column = (NSUInteger) fmodf(i + j, self.columns);
+            NSUInteger row = (NSUInteger) fmodf(j, self.rows);
             product *= [self getValueAtRow: row column: column];
         }
         
@@ -253,9 +248,8 @@
         product = 1;
         
         for (int j = 0; j < self.columns; j++) {
-            int column = (int) fmodf(i - j + self.columns, self.columns);
-            int row = (int) fmodf(j, self.rows);
-            
+            NSUInteger column = (NSUInteger)fmodf(i - j + self.columns, self.columns);
+            NSUInteger row = (NSUInteger)fmodf(j, self.rows);
             product *= [self getValueAtRow: row column: column];
         }
         
@@ -270,7 +264,7 @@
  *
  * Creates a duplicate TwoDimensionalMatrixOfDoubles of the current matrix
  */
-- (DoublesMatrix *) duplicate
+- (DoublesMatrix *)duplicate
 {
     DoublesMatrix *duplicate = [[DoublesMatrix alloc] initWithSizeRows: self.rows columns: self.columns];
     

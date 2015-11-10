@@ -25,7 +25,7 @@
     NSMutableArray *y = [NSMutableArray arrayWithArray:@[ @1, @-7, @6, @12, @-4, @-12, @-2, @13, @23, @30 ]];
     
     int degree = 6;
-    self.regression = [PolynomialRegression regressionWithXValues: x AndYValues: y PolynomialDegree: degree];
+    self.regression = [PolynomialRegression regressionWithXValues:x yValues:y polynomialDegree:degree];
 }
 
 - (void)tearDown {

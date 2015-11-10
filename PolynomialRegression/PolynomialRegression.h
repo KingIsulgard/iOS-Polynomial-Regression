@@ -11,5 +11,5 @@
 #import "DoublesMatrix.h"
 
 @interface PolynomialRegression : NSObject
-+ (NSMutableArray *) regressionWithXValues: (NSMutableArray *) xvals AndYValues: (NSMutableArray *) yvals PolynomialDegree: (int) p;
++ (NSMutableArray *)regressionWithXValues:(NSMutableArray *)xvals yValues:(NSMutableArray *)yvals polynomialDegree:(NSUInteger)p;
 @end

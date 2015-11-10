@@ -47,7 +47,7 @@
     [y addObject: @30];
     
     int degree = 6;
-    NSMutableArray *regression = [PolynomialRegression regressionWithXValues: x AndYValues: y PolynomialDegree: degree];
+    NSMutableArray *regression = [PolynomialRegression regressionWithXValues:x yValues:y polynomialDegree:degree];
     
     NSLog(@"The result is the sum of");
     

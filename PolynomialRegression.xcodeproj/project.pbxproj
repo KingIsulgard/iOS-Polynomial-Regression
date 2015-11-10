@@ -29,9 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CA11100C1ABB16560007758E /* DoublesMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoublesMatrix.h; sourceTree = "<group>"; };
-		CA11100D1ABB16560007758E /* DoublesMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoublesMatrix.m; sourceTree = "<group>"; };
-		CA547DFF1ABF319800E10ECC /* PolynomialRegression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolynomialRegression.m; sourceTree = "<group>"; };
+		CA11100C1ABB16560007758E /* DoublesMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DoublesMatrix.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		CA11100D1ABB16560007758E /* DoublesMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DoublesMatrix.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CA547DFF1ABF319800E10ECC /* PolynomialRegression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PolynomialRegression.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CA547E011ABF31A700E10ECC /* PolynomialRegression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolynomialRegression.h; sourceTree = "<group>"; };
 		CA80200A1AB9B747007CDF96 /* PolynomialRegression.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolynomialRegression.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA80200E1AB9B747007CDF96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

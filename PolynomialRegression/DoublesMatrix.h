@@ -18,7 +18,7 @@
 - (instancetype)initWithSizeRows:(NSUInteger)m columns:(NSUInteger)n;
 - (void)expandToRows:(NSUInteger)m columns:(NSUInteger)n;
 - (void)setValueAtRow:(NSUInteger)m column:(NSUInteger)n value:(double)value;
-- (double)getValueAtRow:(NSUInteger)m column:(NSUInteger)n;
+- (double)valueAtRow:(NSUInteger)m column:(NSUInteger)n;
 
 - (DoublesMatrix *)transpose;
 - (DoublesMatrix *)multiplyWithMatrix:(DoublesMatrix *)matrix;

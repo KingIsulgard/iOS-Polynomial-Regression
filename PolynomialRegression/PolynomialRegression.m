@@ -39,7 +39,7 @@
     NSMutableArray *result = [[NSMutableArray alloc] init];
     
     for (NSUInteger i = 0; i <= p; i++) {
-        double value = [regression getValueAtRow:i column:0];
+        double value = [regression valueAtRow:i column:0];
         [result addObject: @(value)];
     }
     
@@ -62,30 +62,30 @@
         
         DoublesMatrix *dMatrix = [[DoublesMatrix alloc] initWithSizeRows: l.rows columns: 1];
         
-        double val1 = [r getValueAtRow: (int) [nP getValueAtRow: 0 column: 0] column: k];
-        double val2 = [lMatrix getValueAtRow: 0 column: 0];
+        double val1 = [r valueAtRow: (int) [nP valueAtRow: 0 column: 0] column: k];
+        double val2 = [lMatrix valueAtRow: 0 column: 0];
         [dMatrix setValueAtRow: 0 column: 0 value: val1 / val2];
         
         for (NSUInteger i = 1; i < l.rows; i++) {
             sum = 0.0f;
             for (NSUInteger j = 0; j < i; j++) {
-                sum += ([lMatrix getValueAtRow: i column: j] * [dMatrix getValueAtRow: j column: 0]);
+                sum += ([lMatrix valueAtRow: i column: j] * [dMatrix valueAtRow: j column: 0]);
             }
             
-            double value = [r getValueAtRow:(NSUInteger)[nP getValueAtRow: i column: 0] column: k];
+            double value = [r valueAtRow:(NSUInteger)[nP valueAtRow: i column: 0] column: k];
             value -= sum;
-            value /= [lMatrix getValueAtRow: i column: i];
+            value /= [lMatrix valueAtRow: i column: i];
             [dMatrix setValueAtRow: i column: 0 value: value];
         }
         
-        [resultMatrix setValueAtRow: (l.rows - 1) column: k value: [dMatrix getValueAtRow: (l.rows - 1) column: 0]];
+        [resultMatrix setValueAtRow: (l.rows - 1) column: k value: [dMatrix valueAtRow: (l.rows - 1) column: 0]];
         
         for (NSInteger i = (l.rows - 2); i >= 0; i--) {
             sum = 0.0f;
             for (NSUInteger j = i + 1; j < l.rows; j++) {
-                sum += ([uMatrix getValueAtRow: i column: j] * [resultMatrix getValueAtRow: j column: k]);
+                sum += ([uMatrix valueAtRow: i column: j] * [resultMatrix valueAtRow: j column: k]);
             }
-            [resultMatrix setValueAtRow: i column: k value: ([dMatrix getValueAtRow: i column: 0] - sum)];
+            [resultMatrix setValueAtRow: i column: k value: ([dMatrix valueAtRow: i column: 0] - sum)];
         }
     }
     
@@ -114,52 +114,52 @@
             double rowSum = 0.0f;
             
             for (NSUInteger k = i; k < l.rows; k++) {
-                rowSum += fabs([workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: j column: 0] column: k]);
+                rowSum += fabs([workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: j column: 0] column: k]);
             }
             
-            double dCurrentRatio = fabs([workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: j column: 0] column: i]) / rowSum;
+            double dCurrentRatio = fabs([workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: j column: 0] column: i]) / rowSum;
             
             if (dCurrentRatio > maxRowRatio) {
-                maxRowRatio = (int) fabs([workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: j column: 0] column: i]) / rowSum;
-                maxRow = (int) [pivotArray getValueAtRow: j column: 0];
+                maxRowRatio = (int) fabs([workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: j column: 0] column: i]) / rowSum;
+                maxRow = (int) [pivotArray valueAtRow: j column: 0];
                 maxPosition = j;
             }
         }
         
-        if (maxRow != (int) [pivotArray getValueAtRow: i column: 0]) {
-            double hold = [pivotArray getValueAtRow: i column: 0];
+        if (maxRow != (int) [pivotArray valueAtRow: i column: 0]) {
+            double hold = [pivotArray valueAtRow: i column: 0];
             [pivotArray setValueAtRow: i column: 0 value: (double) maxRow];
             [pivotArray setValueAtRow: maxPosition column: 0 value: hold];
         }
         
-        double rowFirstElementValue = [workingUMatrix getValueAtRow: (int) [pivotArray getValueAtRow: i column: 0] column: i];
+        double rowFirstElementValue = [workingUMatrix valueAtRow: (int) [pivotArray valueAtRow: i column: 0] column: i];
         
         for (int j = 0; j < l.rows; j++) {
             if (j < i) {
-                [workingUMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j value: 0.0f];
+                [workingUMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j value: 0.0f];
             } else if (j == i) {
-                [workingLMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j value: rowFirstElementValue];
-                [workingUMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j value: 1.0f];
+                [workingLMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j value: rowFirstElementValue];
+                [workingUMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j value: 1.0f];
             } else {
-                double tempValue = [workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j];
-                [workingUMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j value: tempValue / rowFirstElementValue];
-                [workingLMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j value: 0.0f];
+                double tempValue = [workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j];
+                [workingUMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j value: tempValue / rowFirstElementValue];
+                [workingLMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j value: 0.0f];
             }
         }
         
         for (int k = i + 1; k < l.rows; k++) {
-            rowFirstElementValue = [workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: k column: 0] column: i];
+            rowFirstElementValue = [workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: k column: 0] column: i];
             
             for (int j = 0; j < l.rows; j++) {
                 if (j < i) {
-                    [workingUMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: k column: 0] column: j value: 0.0f];
+                    [workingUMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: k column: 0] column: j value: 0.0f];
                 } else if (j == i) {
-                    [workingLMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: k column: 0] column: j value: rowFirstElementValue];
-                    [workingUMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: k column: 0] column: j value: 0.0f];
+                    [workingLMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: k column: 0] column: j value: rowFirstElementValue];
+                    [workingUMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: k column: 0] column: j value: 0.0f];
                 } else {
-                    double tempValue = [workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: k column: 0] column: j];
-                    double tempValue2 = [workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column: 0] column: j];
-                    [workingUMatrix setValueAtRow: (NSInteger) [pivotArray getValueAtRow: k column: 0] column: j value: tempValue - (rowFirstElementValue * tempValue2)];
+                    double tempValue = [workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: k column: 0] column: j];
+                    double tempValue2 = [workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: i column: 0] column: j];
+                    [workingUMatrix setValueAtRow: (NSInteger) [pivotArray valueAtRow: k column: 0] column: j value: tempValue - (rowFirstElementValue * tempValue2)];
                 }
             }
         }
@@ -167,8 +167,8 @@
     
     for (int i = 0; i < l.rows; i++) {
         for (int j = 0; j < l.rows; j++) {
-            double uValue = [workingUMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column:0] column: j];
-            double lValue = [workingLMatrix getValueAtRow: (NSInteger) [pivotArray getValueAtRow: i column:0] column: j];
+            double uValue = [workingUMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: i column:0] column: j];
+            double lValue = [workingLMatrix valueAtRow: (NSInteger) [pivotArray valueAtRow: i column:0] column: j];
             [uMatrix setValueAtRow: i column: j value: uValue];
             [lMatrix setValueAtRow: i column: j value: lValue];
         }

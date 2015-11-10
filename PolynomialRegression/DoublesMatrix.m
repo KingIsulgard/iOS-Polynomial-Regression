@@ -90,7 +90,7 @@
  *
  * Get the value at a certain row and column
  */
-- (double)getValueAtRow:(NSUInteger)m column:(NSUInteger)n
+- (double)valueAtRow:(NSUInteger)m column:(NSUInteger)n
 {
     if (m >= self.rows || n >= self.columns) {
         [self expandToRows: (m + 1) columns: (n + 1)];
@@ -119,7 +119,7 @@
     
     for (int i = 0; i < self.rows; i++) {
         for (int j = 0; j < self.columns; j++) {
-            double value = [self getValueAtRow: i column: j];
+            double value = [self valueAtRow: i column: j];
             [transposed setValueAtRow: j column: i value: value];
         }
         
@@ -151,7 +151,7 @@
             // For field Rij we need to make the sum of AixBxj
             double value = 0.0f;
             for (int col = 0; col < self.columns; col++) {
-                value += ([self getValueAtRow: l_row column: col] * [matrix getValueAtRow: col column: r_col]);
+                value += ([self valueAtRow: l_row column: col] * [matrix valueAtRow: col column: r_col]);
             }
             [result setValueAtRow: l_row column: r_col value: value];
         }
@@ -240,7 +240,7 @@
         for (int j = 0; j < self.columns; j++) {
             NSUInteger column = (NSUInteger) fmodf(i + j, self.columns);
             NSUInteger row = (NSUInteger) fmodf(j, self.rows);
-            product *= [self getValueAtRow: row column: column];
+            product *= [self valueAtRow: row column: column];
         }
         
         det += product;
@@ -250,7 +250,7 @@
         for (int j = 0; j < self.columns; j++) {
             NSUInteger column = (NSUInteger)fmodf(i - j + self.columns, self.columns);
             NSUInteger row = (NSUInteger)fmodf(j, self.rows);
-            product *= [self getValueAtRow: row column: column];
+            product *= [self valueAtRow: row column: column];
         }
         
         det -= product;
@@ -270,7 +270,7 @@
     
     for (int i = 0; i < self.rows; i++) {
         for (int j = 0; j < self.columns; j++) {
-            [duplicate setValueAtRow: i column: j value: [self getValueAtRow: i column: j]];
+            [duplicate setValueAtRow: i column: j value: [self valueAtRow: i column: j]];
         }
     }
     

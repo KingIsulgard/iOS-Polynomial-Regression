@@ -10,6 +10,67 @@
 #import "PolynomialRegression.h"
 
 @implementation PolynomialRegression
+
++ (NSMutableDictionary *) regressionWithPoints:(NSArray *)points polynomialDegree: (int)p;
+{
+
+    if (nil != points && 0 < [points count]) {
+        
+        NSMutableArray *xValues = [NSMutableArray new];
+        NSMutableArray *yValues = [NSMutableArray new];
+        
+        for (NSValue *pointValue in points) {
+            
+            [xValues addObject:[NSNumber numberWithDouble:[pointValue CGPointValue].x]];
+            [yValues addObject:[NSNumber numberWithDouble:[pointValue CGPointValue].y]];
+        }
+        
+        NSArray *coefficients = [PolynomialRegression regressionWithXValues:xValues AndYValues:yValues PolynomialDegree:p];
+        NSMutableDictionary *results = [NSMutableDictionary dictionaryWithDictionary:@{kPolynomialRegressionSolutionPolyDegreeKey : @(p), kPolynomialRegressionSolutionCoefficientArrayKey : coefficients}];
+        
+        [PolynomialRegression logDebugMessageForInputPoints:points degree:p results:results];
+        
+        return results;
+    }
+    return nil;
+}
+
++(void)logDebugMessageForInputPoints:(NSArray *)points degree:(int)p results:(NSDictionary *)results;
+{
+    NSString *debugStr = [NSString stringWithFormat:@"Polynomial Regression results (d=%i):  y = ",p];
+    
+    NSArray *coefficients = [results objectForKey:kPolynomialRegressionSolutionCoefficientArrayKey];
+    if (nil != coefficients) {
+        int degree = [coefficients count] - 1;
+        for (int i=degree; i >= 0; i--) {
+            double coefficient = [[coefficients objectAtIndex:i] doubleValue];
+            NSString *signString = @"";
+            if (degree != i) {
+                if (0 <= coefficient) {
+                    signString = @" + ";
+                } else {
+                    signString = @" - ";
+                }
+                debugStr = [debugStr stringByAppendingFormat:@"%@%.3f x^%i",signString,ABS(coefficient),i];
+            }
+            else {
+                debugStr = [debugStr stringByAppendingFormat:@"%.3f x^%i",coefficient,i];
+            }
+        }
+    }
+    debugStr = [debugStr stringByAppendingString:@"\n"];
+    
+    NSString *inputPointSummary = @"";
+    for (NSValue *nsValue in points) {
+        CGPoint point = (CGPoint)[nsValue CGPointValue];
+        NSString *pointString = NSStringFromCGPoint(point);
+        inputPointSummary = [inputPointSummary stringByAppendingFormat:@"%@, ",pointString];
+    }
+    
+    debugStr = [debugStr stringByAppendingFormat:@"InputPoints = %@\n",inputPointSummary];
+    DDLogVerbose(@"%@",debugStr);
+}
+
 + (NSMutableArray *) regressionWithXValues: (NSMutableArray *) xvals AndYValues: (NSMutableArray *) yvals PolynomialDegree: (int) p {
     
     if(p < 1) {

@@ -41,7 +41,7 @@
     
     NSArray *coefficients = [results objectForKey:kPolynomialRegressionSolutionCoefficientArrayKey];
     if (nil != coefficients) {
-        int degree = [coefficients count] - 1;
+        int degree = (int)[coefficients count] - 1;
         for (int i=degree; i >= 0; i--) {
             double coefficient = [[coefficients objectAtIndex:i] doubleValue];
             NSString *signString = @"";

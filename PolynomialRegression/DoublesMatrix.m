@@ -11,33 +11,29 @@
 
 @implementation DoublesMatrix
 
-@synthesize rows;
-@synthesize columns;
-
 /**
  * Matrix init
  *
  * Create an empty matrix with zeros of size rowsxcolumns
  */
-- (id) initWithSizeRows: (int) m columns: (int) n
+- (instancetype)initWithSizeRows:(NSUInteger)m columns:(NSUInteger)n
 {
-    if ( self = [super init] )
-    {
-        rows = m;
-        columns = n;
-        values = [[NSMutableArray alloc] init];
-        
-        for(int i = 0; i < m; i++) {
-            NSMutableArray *nValues = [[NSMutableArray alloc] init];
-            
-            for(int j = 0; j < n; j++) {
-                [nValues addObject: [NSNumber numberWithDouble: 0]];
-            }
-            
-            [values addObject: nValues];
-        }
-    }
+    if (!(self = [super init])) return nil;
+
+    _rows = m;
+    _columns = n;
+    _values = [[NSMutableArray alloc] init];
     
+    for (int i = 0; i < m; i++) {
+        NSMutableArray *nValues = [[NSMutableArray alloc] init];
+        
+        for (int j = 0; j < n; j++) {
+            [nValues addObject: @0];
+        }
+        
+        [_values addObject: nValues];
+    }
+
     return self;
 }
 
@@ -46,29 +42,31 @@
  *
  * Resize the array to a bigger size if needed
  */
-- (void) expandToRows: (int) m columns: (int) n
+- (void)expandToRows:(NSUInteger)m columns:(NSUInteger)n
 {
-    if(columns < n) {
-        for(int i = 0; i < rows; i++) {
-            int adder = n - columns;
-            for(int j = 0; j < adder; j++) {
-                [[values objectAtIndex: i] addObject: [NSNumber numberWithDouble: 0]];
+    if (self.columns < n) {
+        for (int i = 0; i < self.rows; i++) {
+            NSUInteger adder = n - self.columns;
+            for (int j = 0; j < adder; j++) {
+                [self.values[i] addObject: @0];
             }
         }
-        columns = n;
+
+        self.columns = n;
     }
     
-    if(rows < m) {
-        int adder = m - rows;
-        for(int i = 0; i < adder; i++) {
+    if (self.rows < m) {
+        NSUInteger adder = m - self.rows;
+        for (int i = 0; i < adder; i++) {
             NSMutableArray *nValues = [[NSMutableArray alloc] init];
-            for(int j = 0; j < n; j++) {
-                [nValues addObject: [NSNumber numberWithDouble: 0]];
+            for (int j = 0; j < n; j++) {
+                [nValues addObject: @0];
             }
-            [values addObject: nValues];
             
+            [self.values addObject: nValues];
         }
-        rows = m;
+
+        self.rows = m;
     }
 }
 
@@ -77,14 +75,14 @@
  *
  * Set the value at a certain row and column
  */
-- (void) setValueAtRow: (int) m column: (int) n value: (double) value
+- (void)setValueAtRow:(NSUInteger)m column:(NSUInteger)n value:(double)value
 {
-    if(m >= rows || n >= columns) {
+    if (m >= self.rows || n >= self.columns) {
         [self expandToRows: (m + 1) columns: (n + 1)];
     }
     
-    NSNumber *val = [NSNumber numberWithDouble: value];
-    [[values objectAtIndex: m] setObject: val atIndex: n];
+    NSNumber *val = @(value);
+    [self.values[m] setObject: val atIndex: n];
 }
 
 /**
@@ -92,13 +90,13 @@
  *
  * Get the value at a certain row and column
  */
-- (double) getValueAtRow: (int) m column: (int) n
+- (double)valueAtRow:(NSUInteger)m column:(NSUInteger)n
 {
-    if(m >= rows || n >= columns) {
+    if (m >= self.rows || n >= self.columns) {
         [self expandToRows: (m + 1) columns: (n + 1)];
     }
     
-    return [[[values objectAtIndex: m] objectAtIndex: n] doubleValue];
+    return [self.values[m][n] doubleValue];
 }
 
 /**
@@ -115,12 +113,13 @@
  *
  * @link http://en.wikipedia.org/wiki/Transpose Wikipedia
  */
-- (DoublesMatrix *) transpose {
-    DoublesMatrix *transposed = [[DoublesMatrix alloc] initWithSizeRows: self.columns columns: self.rows];
+- (DoublesMatrix *)transpose
+{
+    DoublesMatrix *transposed = [[DoublesMatrix alloc] initWithSizeRows:self.columns columns:self.rows];
     
-    for(int i = 0; i < self.rows; i++) {
-        for(int j = 0; j < self.columns; j++) {
-            double value = [self getValueAtRow: i column: j];
+    for (int i = 0; i < self.rows; i++) {
+        for (int j = 0; j < self.columns; j++) {
+            double value = [self valueAtRow: i column: j];
             [transposed setValueAtRow: j column: i value: value];
         }
         
@@ -140,22 +139,19 @@
  *
  * @link http://en.wikipedia.org/wiki/Matrix_multiplication Wikipedia
  */
-- (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix {
-    if(self.columns != matrix.rows) {
-        [NSException raise:@"There should be as many columns in matrix A (this matrix) as there are rows in matrix B (parameter matrix) to multiply. " format: @"Matrix A has %d columns and matrix B has %d rows.", self.columns, matrix.rows];
-        return nil;
-    }
+- (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix
+{
+    NSCAssert(self.columns == matrix.rows, @"There should be as many columns in matrix A (this matrix) as there are rows in matrix B (parameter matrix) to multiply. Matrix A has %lu columns and matrix B has %lu rows.", self.columns, matrix.rows);
     
     // The result of a mxn matrix multiplied with an nxp matrix resulsts in a mxp matrix
-    DoublesMatrix *result = [[DoublesMatrix alloc] initWithSizeRows: rows columns: matrix.columns];
+    DoublesMatrix *result = [[DoublesMatrix alloc] initWithSizeRows:self.rows columns:matrix.columns];
     
-    for(int r_col = 0; r_col < matrix.columns; r_col++) {
-        
-        for(int l_row = 0; l_row < rows; l_row++) {
+    for (int r_col = 0; r_col < matrix.columns; r_col++) {
+        for (int l_row = 0; l_row < self.rows; l_row++) {
             // For field Rij we need to make the sum of AixBxj
             double value = 0.0f;
-            for(int col = 0; col < columns; col++) {
-                value += ([self getValueAtRow: l_row column: col] * [matrix getValueAtRow: col column: r_col]);
+            for (int col = 0; col < self.columns; col++) {
+                value += ([self valueAtRow: l_row column: col] * [matrix valueAtRow: col column: r_col]);
             }
             [result setValueAtRow: l_row column: r_col value: value];
         }
@@ -169,11 +165,12 @@
  *
  * Rotate all row elements in the matrix one column to the left
  */
-- (void) rotateLeft {
+- (void)rotateLeft
+{
     // Shift all rows
-    for(int m = 0; m < rows; m++) {
-        NSMutableArray *row = [values objectAtIndex: m];
-        NSNumber *shiftObject = [row objectAtIndex: 0];
+    for (int m = 0; m < self.rows; m++) {
+        NSMutableArray *row = self.values[m];
+        NSNumber *shiftObject = row[0];
         [row removeObjectAtIndex: 0];
         [row addObject: shiftObject];
     }
@@ -184,12 +181,13 @@
  *
  * Rotate all row elements in the matrix one column to the right
  */
-- (void) rotateRight {
+- (void)rotateRight
+{
     // Shift all rows
-    for(int m = 0; m < rows; m++) {
-        NSMutableArray *row = [values objectAtIndex: m];
-        NSNumber *shiftObject = [row objectAtIndex: columns - 1];
-        [row removeObjectAtIndex: columns - 1];
+    for (int m = 0; m < self.rows; m++) {
+        NSMutableArray *row = self.values[m];
+        NSNumber *shiftObject = row[self.columns - 1];
+        [row removeObjectAtIndex: self.columns - 1];
         [row insertObject: shiftObject atIndex: 0];
     }
 }
@@ -199,10 +197,11 @@
  *
  * Rotate all column elements in the matrix one row to the top
  */
-- (void) rotateTop {
-    NSMutableArray *row = [values objectAtIndex: 0];
-    [values removeObjectAtIndex: 0];
-    [values addObject: row];
+- (void)rotateTop
+{
+    NSMutableArray *row = self.values[0];
+    [self.values removeObjectAtIndex: 0];
+    [self.values addObject: row];
 }
 
 /**
@@ -210,10 +209,11 @@
  *
  * Rotate all column elements in the matrix one row to the bottom
  */
-- (void) rotateBottom {
-    NSMutableArray *row = [values objectAtIndex: rows - 1];
-    [values removeObjectAtIndex: rows - 1];
-    [values insertObject: row atIndex: 0];
+- (void)rotateBottom
+{
+    NSMutableArray *row = self.values[self.rows - 1];
+    [self.values removeObjectAtIndex: self.rows - 1];
+    [self.values insertObject: row atIndex: 0];
 }
 
 /**
@@ -230,28 +230,27 @@
  *
  * @link http://en.wikipedia.org/wiki/Determinant Wikipedia
  */
-- (double) determinant {
+- (double)determinant
+{
     double det = 0;
     
-    for(int i = 0; i < rows; i++) {
+    for (int i = 0; i < self.rows; i++) {
         double product = 1;
         
-        for(int j = 0; j < columns; j++) {
-            int column = (int) fmodf(i + j, columns);
-            int row = (int) fmodf(j, rows);
-            
-            product *= [self getValueAtRow: row column: column];
+        for (int j = 0; j < self.columns; j++) {
+            NSUInteger column = (NSUInteger) fmodf(i + j, self.columns);
+            NSUInteger row = (NSUInteger) fmodf(j, self.rows);
+            product *= [self valueAtRow: row column: column];
         }
         
         det += product;
         
         product = 1;
         
-        for(int j = 0; j < columns; j++) {
-            int column = (int) fmodf(i - j + columns, columns);
-            int row = (int) fmodf(j, rows);
-            
-            product *= [self getValueAtRow: row column: column];
+        for (int j = 0; j < self.columns; j++) {
+            NSUInteger column = (NSUInteger)fmodf(i - j + self.columns, self.columns);
+            NSUInteger row = (NSUInteger)fmodf(j, self.rows);
+            product *= [self valueAtRow: row column: column];
         }
         
         det -= product;
@@ -265,15 +264,17 @@
  *
  * Creates a duplicate TwoDimensionalMatrixOfDoubles of the current matrix
  */
-- (DoublesMatrix *) duplicate {
-    DoublesMatrix *duplicate = [[DoublesMatrix alloc] initWithSizeRows: rows columns: columns];
+- (DoublesMatrix *)duplicate
+{
+    DoublesMatrix *duplicate = [[DoublesMatrix alloc] initWithSizeRows: self.rows columns: self.columns];
     
-    for(int i = 0; i < rows; i++) {
-        for(int j = 0; j < columns; j++) {
-            [duplicate setValueAtRow: i column: j value: [self getValueAtRow: i column: j]];
+    for (int i = 0; i < self.rows; i++) {
+        for (int j = 0; j < self.columns; j++) {
+            [duplicate setValueAtRow: i column: j value: [self valueAtRow: i column: j]];
         }
     }
     
     return duplicate;
 }
+
 @end

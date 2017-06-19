@@ -9,31 +9,28 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DoublesMatrix : NSObject {
-    NSMutableArray *values;
-    int rows;
-    int columns;
-}
+@interface DoublesMatrix : NSObject
 
-@property (nonatomic) int rows;
-@property (nonatomic) int columns;
+@property (nonatomic, readwrite, strong) NSMutableArray *values;
+@property (nonatomic, readwrite, assign) NSUInteger rows;
+@property (nonatomic, readwrite, assign) NSUInteger columns;
 
-- (id) initWithSizeRows: (int) m columns: (int) n;
-- (void) expandToRows: (int) m columns: (int) n;
-- (void) setValueAtRow: (int) m column: (int) n value: (double) value;
-- (double) getValueAtRow: (int) m column: (int) n;
+- (instancetype)initWithSizeRows:(NSUInteger)m columns:(NSUInteger)n;
+- (void)expandToRows:(NSUInteger)m columns:(NSUInteger)n;
+- (void)setValueAtRow:(NSUInteger)m column:(NSUInteger)n value:(double)value;
+- (double)valueAtRow:(NSUInteger)m column:(NSUInteger)n;
 
-- (DoublesMatrix *) transpose;
-- (DoublesMatrix *) multiplyWithMatrix: (DoublesMatrix *) matrix;
+- (DoublesMatrix *)transpose;
+- (DoublesMatrix *)multiplyWithMatrix:(DoublesMatrix *)matrix;
 
-- (void) rotateLeft;
-- (void) rotateRight;
+- (void)rotateLeft;
+- (void)rotateRight;
 
-- (void) rotateTop;
-- (void) rotateBottom;
+- (void)rotateTop;
+- (void)rotateBottom;
 
-- (double) determinant;
+- (double)determinant;
 
-- (DoublesMatrix *) duplicate;
+- (DoublesMatrix *)duplicate;
 
 @end

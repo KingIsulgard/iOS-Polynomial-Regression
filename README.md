@@ -81,7 +81,7 @@ Please consider a small donation if you use iOS Polynomial Regression in your pr
 * [@KingIsulgard](https://github.com/KingIsulgard): <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HQE64D8RQGPLC"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="[paypal]" /></a> !
 
 ## License
-The license for the code is GPL.
+The license for the code is MIT.
 
 You're welcome to use it in commercial, closed-source, open source, free or any other kind of software, as long as you credit me appropriately and share any improvements to the code.
 
